@@ -105,7 +105,7 @@ const HubPage = () => {
 
             {/* GALERÍA */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <a href="#doujinshi"><img src="/images/pagina1.jpg" /></a>
+              <a href="#doujinshi">
              
             </div>
 
