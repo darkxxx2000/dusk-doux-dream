@@ -6,6 +6,7 @@ import ContentCard from "./ContentCard";
 import DoujinshiSection from "./DoujinshiSection";
 import AISection from "./AISection";
 import Footer from "./Footer";
+import ErikaComic from "./components/ErikaComic";
 
 const categories = [
   { icon: Flame, label: "Trending", count: 128 },
@@ -150,8 +151,8 @@ const HubPage = () => {
       </section>
 
       {/* DOIJINSHI */}
-      <div id="doujinshi">
-        <DoujinshiSection />
+      <div id="doujinshi" className="mt-12">
+        <ErikaComic />
       </div>
 
       {/* AI */}
