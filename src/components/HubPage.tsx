@@ -104,10 +104,26 @@ const HubPage = () => {
           <div className="flex-1 min-w-0">
 
             {/* GALERÍA */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <a href="#doujinshi">
-             
-            </div>
+<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+  <a href="#doujinshi">
+    <img
+      src="https://ah-img.luscious.net/KOKOMIEL/556657/5_01JG21X48ATXDNYTZ0J6TAD73N.640x0.jpg"
+      alt=""
+    />
+  </a>
+
+  <img
+    src="https://ah-img.luscious.net/KOKOMIEL/556657/5_01JG21X48ATXDNYTZ0J6TAD73N.640x0.jpg"
+    alt=""
+  />
+
+  <img
+    src="https://ah-img.luscious.net/KOKOMIEL/556657/5_01JG21X48ATXDNYTZ0J6TAD73N.640x0.jpg"
+    alt=""
+  />
+
+</div>
 
             {/* FEATURED */}
             <div className="mt-12">
