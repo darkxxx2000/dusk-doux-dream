@@ -90,17 +90,43 @@ const HubPage = () => {
         </div>
       </section>
 
-      {/* Main content with sidebar */}
-      <section className="container mx-auto px-4 pb-12">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <SidebarFilters
-            selectedGenres={selectedGenres}
-            selectedSeries={selectedSeries}
-            selectedCharacters={selectedCharacters}
-            onToggleGenre={toggleGenre}
-            onToggleSeries={toggleSeries}
-            onToggleCharacter={toggleCharacter}
-            onClear={clearFilters} />
+  <section className="container mx-auto px-4 pb-12">
+  <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Sidebar */}
+    <SidebarFilters
+      selectedGenres={selectedGenres}
+      selectedSeries={selectedSeries}
+      selectedCharacters={selectedCharacters}
+      onToggleGenre={toggleGenre}
+      onToggleSeries={toggleSeries}
+      onToggleCharacter={toggleCharacter}
+      onClear={clearFilters}
+    />
+
+    {/* Contenido principal */}
+    <div className="flex-1 min-w-0">
+
+      {/* Galería */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <img src="/images/pagina1.jpg" />
+        <img src="/images/pagina2.jpg" />
+        <img src="/images/pagina3.jpg" />
+        <img src="/images/pagina4.jpg" />
+        <img src="/images/pagina5.jpg" />
+        <img src="/images/pagina6.jpg" />
+        <img src="/images/pagina7.jpg" />
+        <img src="/images/pagina8.jpg" />
+        <img src="/images/pagina9.jpg" />
+        <img src="/images/pagina10.jpg" />
+        <img src="/images/pagina11.jpg" />
+        <img src="/images/pagina12.jpg" />
+      </div>
+
+    </div>
+
+  </div>
+</section>
           
 
           <div className="flex-1 min-w-0">
