@@ -1,36 +1,61 @@
+import { useState, useMemo } from "react";
 import { Flame, Star, Clock, TrendingUp, Heart, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import { contentItems, type Genre, type Series, type Character } from "@/data/content";
+import SidebarFilters from "./SidebarFilters";
+import ContentCard from "./ContentCard";
+import DoujinshiSection from "./DoujinshiSection";
+import AISection from "./AISection";
+import Footer from "./Footer";
 
 const categories = [
-  { icon: Flame, label: "Tendencias", count: 128 },
-  { icon: Star, label: "Populares", count: 256 },
-  { icon: Clock, label: "Recientes", count: 64 },
+  { icon: Flame, label: "Trending", count: 128 },
+  { icon: Star, label: "Popular", count: 256 },
+  { icon: Clock, label: "Recent", count: 64 },
   { icon: TrendingUp, label: "Top Rated", count: 312 },
-  { icon: Heart, label: "Favoritos", count: 89 },
-  { icon: BookOpen, label: "Colecciones", count: 45 },
+  { icon: Heart, label: "Favorites", count: 89 },
+  { icon: BookOpen, label: "Collections", count: 45 },
 ];
 
-const featuredItems = Array.from({ length: 8 }, (_, i) => ({
-  id: i,
-  title: `Título ${i + 1}`,
-  category: categories[i % categories.length].label,
-  rating: (4 + Math.random()).toFixed(1),
-}));
-
 const HubPage = () => {
+  const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
+  const [selectedSeries, setSelectedSeries] = useState<Series[]>([]);
+  const [selectedCharacters, setSelectedCharacters] = useState<Character[]>([]);
+
+  const toggleGenre = (g: Genre) => setSelectedGenres((p) => p.includes(g) ? p.filter((x) => x !== g) : [...p, g]);
+  const toggleSeries = (s: Series) => setSelectedSeries((p) => p.includes(s) ? p.filter((x) => x !== s) : [...p, s]);
+  const toggleCharacter = (c: Character) => setSelectedCharacters((p) => p.includes(c) ? p.filter((x) => x !== c) : [...p, c]);
+  const clearFilters = () => { setSelectedGenres([]); setSelectedSeries([]); setSelectedCharacters([]); };
+
+  const filtered = useMemo(() => {
+    return contentItems.filter((item) => {
+      if (selectedGenres.length && !selectedGenres.includes(item.genre)) return false;
+      if (selectedSeries.length && !selectedSeries.includes(item.series)) return false;
+      if (selectedCharacters.length && !selectedCharacters.some((c) => item.characters.includes(c))) return false;
+      return true;
+    });
+  }, [selectedGenres, selectedSeries, selectedCharacters]);
+
+  // Group by series
+  const grouped = useMemo(() => {
+    const map = new Map<string, typeof filtered>();
+    filtered.forEach((item) => {
+      const arr = map.get(item.series) ?? [];
+      arr.push(item);
+      map.set(item.series, arr);
+    });
+    return map;
+  }, [filtered]);
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="border-b border-border/50 backdrop-blur-md sticky top-0 z-40 bg-background/80">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="font-display text-2xl font-bold text-gradient">
-            MAGMA HUB
-          </h1>
+          <h1 className="font-display text-2xl font-bold text-gradient">MAGMA HUB</h1>
           <nav className="hidden md:flex gap-6 text-sm font-medium text-muted-foreground">
-            <a href="#" className="text-foreground hover:text-primary transition-colors">Inicio</a>
-            <a href="#" className="hover:text-primary transition-colors">Explorar</a>
-            <a href="#" className="hover:text-primary transition-colors">Categorías</a>
-            <a href="#" className="hover:text-primary transition-colors">Contacto</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Home</a>
+            <a href="#" className="hover:text-primary transition-colors">Explore</a>
+            <a href="#" className="hover:text-primary transition-colors">Categories</a>
           </nav>
         </div>
       </header>
@@ -40,17 +65,17 @@ const HubPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="font-display text-4xl md:text-6xl font-black mb-4 text-foreground">
-            Bienvenido al <span className="text-gradient">Hub</span>
+            Welcome to the <span className="text-gradient">Hub</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Explora nuestra colección curada de contenido exclusivo.
+            Explore our curated collection of exclusive content.
           </p>
         </div>
       </section>
 
       {/* Categories */}
       <section className="container mx-auto px-4 pb-12">
-        <h3 className="font-display text-xl font-bold mb-6 text-foreground">Categorías</h3>
+        <h3 className="font-display text-xl font-bold mb-6 text-foreground">Categories</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {categories.map((cat) => (
             <button
@@ -65,38 +90,46 @@ const HubPage = () => {
         </div>
       </section>
 
-      {/* Grid */}
-      <section className="container mx-auto px-4 pb-16">
-        <h3 className="font-display text-xl font-bold mb-6 text-foreground">Destacados</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {featuredItems.map((item) => (
-            <Link
-              to={`/comic/${item.id}`}
-              key={item.id}
-              className="anime-card rounded-lg overflow-hidden group cursor-pointer hover:glow-border transition-all block"
-            >
-              <div className="aspect-[3/4] bg-muted/50 relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <span className="text-xs text-primary font-semibold">{item.category}</span>
-                  <h4 className="text-sm font-bold text-foreground truncate">{item.title}</h4>
-                  <div className="flex items-center gap-1 mt-1">
-                    <Star className="w-3 h-3 text-primary fill-primary" />
-                    <span className="text-xs text-muted-foreground">{item.rating}</span>
-                  </div>
+      {/* Main content with sidebar */}
+      <section className="container mx-auto px-4 pb-12">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <SidebarFilters
+            selectedGenres={selectedGenres}
+            selectedSeries={selectedSeries}
+            selectedCharacters={selectedCharacters}
+            onToggleGenre={toggleGenre}
+            onToggleSeries={toggleSeries}
+            onToggleCharacter={toggleCharacter}
+            onClear={clearFilters}
+          />
+
+          <div className="flex-1 min-w-0">
+            <h3 className="font-display text-xl font-bold mb-6 text-foreground">Featured</h3>
+            {Array.from(grouped.entries()).map(([series, items]) => (
+              <div key={series} className="mb-8">
+                <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{series}</h4>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {items.map((item) => (
+                    <ContentCard key={item.id} item={item} />
+                  ))}
                 </div>
               </div>
-            </Link>
-          ))}
+            ))}
+            {filtered.length === 0 && (
+              <p className="text-muted-foreground text-sm text-center py-12">No content matches your filters.</p>
+            )}
+          </div>
         </div>
       </section>
 
+      {/* Doujinshi */}
+      <DoujinshiSection />
+
+      {/* AI Section */}
+      <AISection />
+
       {/* Footer */}
-      <footer className="border-t border-border/50 py-8">
-        <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
-          <p>© 2026 Magma Hub. Todos los derechos reservados.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
