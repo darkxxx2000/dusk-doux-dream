@@ -1,4 +1,5 @@
 import { Flame, Star, Clock, TrendingUp, Heart, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const categories = [
   { icon: Flame, label: "Tendencias", count: 128 },
@@ -69,9 +70,10 @@ const HubPage = () => {
         <h3 className="font-display text-xl font-bold mb-6 text-foreground">Destacados</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {featuredItems.map((item) => (
-            <div
+            <Link
+              to={`/comic/${item.id}`}
               key={item.id}
-              className="anime-card rounded-lg overflow-hidden group cursor-pointer hover:glow-border transition-all"
+              className="anime-card rounded-lg overflow-hidden group cursor-pointer hover:glow-border transition-all block"
             >
               <div className="aspect-[3/4] bg-muted/50 relative">
                 <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
@@ -84,7 +86,7 @@ const HubPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
