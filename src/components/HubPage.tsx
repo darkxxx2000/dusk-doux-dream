@@ -1,4 +1,5 @@
 import { Flame, Star, Clock, TrendingUp, Heart, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const categories = [
   { icon: Flame, label: "Tendencias", count: 128 },
