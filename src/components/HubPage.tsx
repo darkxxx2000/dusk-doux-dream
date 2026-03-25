@@ -3,10 +3,11 @@ import { Flame, BookOpen, Image, Pencil, FileText, Globe } from "lucide-react";
 import { contentItems, type Genre, type Series, type Character } from "@/data/content";
 import SidebarFilters from "./SidebarFilters";
 import ContentCard from "./ContentCard";
-import DoujinshiSection from "./DoujinshiSection";
 import AISection from "./AISection";
 import Footer from "./Footer";
-import ErikaComic from "./ErikaComic";
+
+// ⚠️ IMPORTANTE: ErikaComic COMENTADO por ahora (para que no rompa build)
+// import ErikaComic from "./ErikaComic";
 
 const categories = [
   { icon: Flame, label: "Home", link: "#" },
@@ -61,136 +62,90 @@ const HubPage = () => {
     <div className="min-h-screen bg-background flex flex-col">
 
       {/* HEADER */}
-      <header className="border-b border-border/50 backdrop-blur-md sticky top-0 z-40 bg-background/80">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="font-display text-2xl font-bold text-gradient">Hot Sweet Comics</h1>
+      <header className="border-b border-border/50 sticky top-0 z-40 bg-background">
+        <div className="container mx-auto px-4 py-4">
+          <h1 className="text-2xl font-bold">Hot Sweet Comics</h1>
         </div>
       </header>
 
-      {/* HERO */}
-      <section className="relative py-16 md:py-24 text-center">
-        <h2 className="font-display text-4xl md:text-6xl font-black mb-4">
-          Welcome to <span className="text-gradient">Magma Doux</span>
-        </h2>
-      </section>
-
       {/* CATEGORIES */}
-      <section className="container mx-auto px-4 pb-12">
+      <section className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {categories.map((cat) => (
-  <a
-    key={cat.label}
-    href={cat.link || "#"}
-    className="anime-card p-4 text-center block hover:scale-105 transition"
-  >
-    <cat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-    <span className="block text-sm">{cat.label}</span>
-  </a>
-))}
+            <a
+              key={cat.label}
+              href={cat.link}
+              className="p-4 text-center border rounded-lg hover:scale-105 transition block"
+            >
+              <cat.icon className="w-6 h-6 mx-auto mb-2" />
+              <span className="block text-sm">{cat.label}</span>
+            </a>
+          ))}
         </div>
       </section>
 
-      {/* MAIN CONTENT */}
-      <section className="container mx-auto px-4 pb-12">
-        <div className="flex flex-col lg:flex-row gap-6">
+      {/* CONTENT */}
+      <section className="container mx-auto px-4 pb-12 flex gap-6">
 
-          {/* SIDEBAR */}
-          <SidebarFilters
-            selectedGenres={selectedGenres}
-            selectedSeries={selectedSeries}
-            selectedCharacters={selectedCharacters}
-            onToggleGenre={toggleGenre}
-            onToggleSeries={toggleSeries}
-            onToggleCharacter={toggleCharacter}
-            onClear={clearFilters}
-          />
+        <SidebarFilters
+          selectedGenres={selectedGenres}
+          selectedSeries={selectedSeries}
+          selectedCharacters={selectedCharacters}
+          onToggleGenre={toggleGenre}
+          onToggleSeries={toggleSeries}
+          onToggleCharacter={toggleCharacter}
+          onClear={clearFilters}
+        />
 
-          {/* CONTENT */}
-          <div className="flex-1 min-w-0">
+        <div className="flex-1">
 
-            {/* GALERÍA */}
-<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="mt-12">
+            <h3 className="font-bold text-xl mb-6">Featured</h3>
 
-  <a href="#doujinshi">
-    <img
-      src="https://ah-img.luscious.net/KOKOMIEL/556657/5_01JG21X48ATXDNYTZ0J6TAD73N.640x0.jpg"
-      alt=""
-    />
-  </a>
-
-  <img
-    src="https://ah-img.luscious.net/KOKOMIEL/556657/5_01JG21X48ATXDNYTZ0J6TAD73N.640x0.jpg"
-    alt=""
-  />
-
-  <img
-    src="https://ah-img.luscious.net/KOKOMIEL/556657/5_01JG21X48ATXDNYTZ0J6TAD73N.640x0.jpg"
-    alt=""
-  />
-
-</div>
-
-            {/* FEATURED */}
-            <div className="mt-12">
-              <h3 className="font-bold text-xl mb-6">Featured</h3>
-
-              {Array.from(grouped.entries()).map(([series, items]) => (
-                <div key={series} className="mb-8">
-                  <h4 className="text-sm font-semibold mb-3">{series}</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {items.map((item) => (
-                      <ContentCard key={item.id} item={item} />
-                    ))}
-                  </div>
+            {Array.from(grouped.entries()).map(([series, items]) => (
+              <div key={series} className="mb-8">
+                <h4 className="text-sm font-semibold mb-3">{series}</h4>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {items.map((item) => (
+                    <ContentCard key={item.id} item={item} />
+                  ))}
                 </div>
-              ))}
-
-              {filtered.length === 0 && (
-                <p className="text-sm text-center py-12">No content matches your filters.</p>
-              )}
-            </div>
+              </div>
+            ))}
 
           </div>
+
         </div>
       </section>
 
       {/* DOIJINSHI */}
-<div id="doujinshi" className="mt-12 container mx-auto px-4">
+      <div id="doujinshi" className="mt-20 container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6">Doujinshi</h2>
+        <p>Contenido en construcción...</p>
+      </div>
 
-  <h2 className="text-2xl font-bold mb-6">Doujinshi</h2>
+      {/* GALLERY */}
+      <div id="gallery" className="mt-20 container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6">Gallery</h2>
+      </div>
 
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {/* SHORT */}
+      <div id="short" className="mt-20 container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6">Short Comics</h2>
+      </div>
 
-    {/* ERIKA CARD */}
-    <a href="#erika" className="anime-card p-3 block hover:scale-105 transition">
+      {/* POST */}
+      <div id="post" className="mt-20 container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6">Post</h2>
+      </div>
 
-      <img
-        src="https://ah-img.luscious.net/KOKOMIEL/370689/portada_01E5WK4YVKQ2ZZJE6ZR0N6JPEF.1024x0.jpg"
-        className="rounded-md mb-2"
-        alt="Erika portada"
-      />
+      {/* CONTACT */}
+      <div id="contact" className="mt-20 container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6">Contact</h2>
+      </div>
 
-      <h3 className="font-bold">ERIKA</h3>
-      <p className="text-xs text-muted-foreground">
-        Comic series
-      </p>
-
-    </a>
-
-  </div>
-
-</div>
-
-{/* ERIKA SECTION */}
-<div id="erika" className="mt-16">
-  <ErikaComic />
-</div>
-
-{/* AI */}
-<AISection />
-
-{/* FOOTER */}
-<Footer />
+      <AISection />
+      <Footer />
 
     </div>
   );
