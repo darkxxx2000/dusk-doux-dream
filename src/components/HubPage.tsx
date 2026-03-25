@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Flame, Star, Clock, TrendingUp, Heart, BookOpen } from "lucide-react";
+import { Flame, BookOpen, Image, Pencil, FileText, Globe } from "lucide-react";
 import { contentItems, type Genre, type Series, type Character } from "@/data/content";
 import SidebarFilters from "./SidebarFilters";
 import ContentCard from "./ContentCard";
@@ -9,11 +9,12 @@ import Footer from "./Footer";
 import ErikaComic from "./ErikaComic";
 
 const categories = [
-  { icon: Flame, label: "Trending", count: 128 },
-  { icon: BookOpen, label: "Doujinshi", count: 256, link: "#doujinshi" },
-  { icon: Clock, label: "Recent", count: 64 },
-  { icon: TrendingUp, label: "Top Rated", count: 312 },
-  { icon: Heart, label: "Favorites", count: 89 }
+  { icon: Flame, label: "Home", link: "#" },
+  { icon: BookOpen, label: "Doujinshi", link: "#doujinshi" },
+  { icon: Image, label: "Gallery", link: "#gallery" },
+  { icon: Pencil, label: "Short Comics", link: "#short" },
+  { icon: FileText, label: "Post", link: "#post" },
+  { icon: Globe, label: "Contact", link: "#contact" }
 ];
 
 const HubPage = () => {
