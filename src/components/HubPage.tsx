@@ -10,11 +10,10 @@ import ErikaComic from "./ErikaComic";
 
 const categories = [
   { icon: Flame, label: "Trending", count: 128 },
-  { icon: BookOpen, label: "Doujinshi", count: 256, link: "#doujinshi" }, // ✅ CAMBIO
+  { icon: BookOpen, label: "Doujinshi", count: 256, link: "#doujinshi" },
   { icon: Clock, label: "Recent", count: 64 },
   { icon: TrendingUp, label: "Top Rated", count: 312 },
-  { icon: Heart, label: "Favorites", count: 89 },
-  { icon: Star, label: "Popular", count: 45 }
+  { icon: Heart, label: "Favorites", count: 89 }
 ];
 
 const HubPage = () => {
