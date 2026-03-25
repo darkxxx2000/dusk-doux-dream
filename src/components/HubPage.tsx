@@ -78,11 +78,15 @@ const HubPage = () => {
       <section className="container mx-auto px-4 pb-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {categories.map((cat) => (
-            <div key={cat.label} className="anime-card p-4 text-center">
-              <cat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-              <span className="block text-sm">{cat.label}</span>
-            </div>
-          ))}
+  <a
+    key={cat.label}
+    href={cat.link || "#"}
+    className="anime-card p-4 text-center block hover:scale-105 transition"
+  >
+    <cat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
+    <span className="block text-sm">{cat.label}</span>
+  </a>
+))}
         </div>
       </section>
 
@@ -151,15 +155,42 @@ const HubPage = () => {
       </section>
 
       {/* DOIJINSHI */}
-      <div id="doujinshi" className="mt-12">
-        <ErikaComic />
-      </div>
+<div id="doujinshi" className="mt-12 container mx-auto px-4">
 
-      {/* AI */}
-      <AISection />
+  <h2 className="text-2xl font-bold mb-6">Doujinshi</h2>
 
-      {/* FOOTER */}
-      <Footer />
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+    {/* ERIKA CARD */}
+    <a href="#erika" className="anime-card p-3 block hover:scale-105 transition">
+
+      <img
+        src="https://ah-img.luscious.net/KOKOMIEL/370689/portada_01E5WK4YVKQ2ZZJE6ZR0N6JPEF.1024x0.jpg"
+        className="rounded-md mb-2"
+        alt="Erika portada"
+      />
+
+      <h3 className="font-bold">ERIKA</h3>
+      <p className="text-xs text-muted-foreground">
+        Comic series
+      </p>
+
+    </a>
+
+  </div>
+
+</div>
+
+{/* ERIKA SECTION */}
+<div id="erika" className="mt-16">
+  <ErikaComic />
+</div>
+
+{/* AI */}
+<AISection />
+
+{/* FOOTER */}
+<Footer />
 
     </div>
   );
