@@ -6,7 +6,7 @@ import ContentCard from "./ContentCard";
 import DoujinshiSection from "./DoujinshiSection";
 import AISection from "./AISection";
 import Footer from "./Footer";
-import ErikaComic from "./components/ErikaComic";
+import ErikaComic from "./ErikaComic";
 
 const categories = [
   { icon: Flame, label: "Trending", count: 128 },
