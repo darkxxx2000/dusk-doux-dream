@@ -5,7 +5,7 @@ import SidebarFilters from "./SidebarFilters";
 import ContentCard from "./ContentCard";
 import AISection from "./AISection";
 import Footer from "./Footer";
-import { supabase } from "../supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 const categories = [
   { icon: Flame, label: "Home", link: "#" },
