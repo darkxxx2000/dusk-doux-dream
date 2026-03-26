@@ -1,20 +1,16 @@
-import { useState } from "react";
-import AgeGate from "@/components/AgeGate";
-import HubPage from "@/components/HubPage";
+import { supabase } from "../supabaseClient";
 
-const Index = () => {
-  const [verified, setVerified] = useState(false);
-
-  if (!verified) {
-    return (
-      <AgeGate
-        onAccept={() => setVerified(true)}
-        onReject={() => window.location.href = "https://google.com"}
-      />
-    );
+export default function Index() {
+  async function loginWithGoogle() {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
   }
 
-  return <HubPage />;
-};
-
-export default Index;
+  return (
+    <div>
+      <h1>Bienvenido</h1>
+      <button onClick={loginWithGoogle}>Login con Google</button>
+    </div>
+  );
+}
