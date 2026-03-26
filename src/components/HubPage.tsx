@@ -5,9 +5,7 @@ import SidebarFilters from "./SidebarFilters";
 import ContentCard from "./ContentCard";
 import AISection from "./AISection";
 import Footer from "./Footer";
-
-// ⚠️ IMPORTANTE: ErikaComic COMENTADO por ahora (para que no rompa build)
-// import ErikaComic from "./ErikaComic";
+import { supabase } from "../supabaseClient";
 
 const categories = [
   { icon: Flame, label: "Home", link: "#" },
@@ -19,6 +17,13 @@ const categories = [
 ];
 
 const HubPage = () => {
+
+  async function loginWithGoogle() {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+  }
+
   const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series[]>([]);
   const [selectedCharacters, setSelectedCharacters] = useState<Character[]>([]);
@@ -63,8 +68,15 @@ const HubPage = () => {
 
       {/* HEADER */}
       <header className="border-b border-border/50 sticky top-0 z-40 bg-background">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Hot Sweet Comics</h1>
+
+          <button
+            onClick={loginWithGoogle}
+            className="px-4 py-2 border rounded-lg hover:scale-105 transition"
+          >
+            Login con Google
+          </button>
         </div>
       </header>
 
@@ -98,7 +110,6 @@ const HubPage = () => {
         />
 
         <div className="flex-1">
-
           <div className="mt-12">
             <h3 className="font-bold text-xl mb-6">Featured</h3>
 
@@ -114,39 +125,33 @@ const HubPage = () => {
             ))}
 
           </div>
-
         </div>
       </section>
 
-      {/* DOIJINSHI */}
+      {/* SECTIONS */}
       <div id="doujinshi" className="mt-20 container mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Doujinshi</h2>
         <p>Contenido en construcción...</p>
       </div>
 
-      {/* GALLERY */}
       <div id="gallery" className="mt-20 container mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Gallery</h2>
       </div>
 
-      {/* SHORT */}
       <div id="short" className="mt-20 container mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Short Comics</h2>
       </div>
 
-      {/* POST */}
       <div id="post" className="mt-20 container mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Post</h2>
       </div>
 
-      {/* CONTACT */}
       <div id="contact" className="mt-20 container mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Contact</h2>
       </div>
 
       <AISection />
       <Footer />
-
     </div>
   );
 };
