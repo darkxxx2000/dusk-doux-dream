@@ -1,14 +1,12 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { supabase } from "./supabaseClient";
 
-createRoot(document.getElementById("root")!).render(<App />);
-import { supabase } from './supabaseClient'
-
-async function loginWithGoogle() {
-  await supabase.auth.signInWithOAuth({
-    provider: 'google',
-  })
+async function initAuth() {
+  await supabase.auth.getSession();
 }
 
-;(window as any).loginWithGoogle = loginWithGoogle
+initAuth().then(() => {
+  createRoot(document.getElementById("root")!).render(<App />);
+});
